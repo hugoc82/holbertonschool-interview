@@ -32,13 +32,24 @@ def canUnlockAll(boxes):
     # On commence avec la première boîte, qui est déjà ouverte
     opened.add(0)
     
+    # Liste pour stocker les nouvelles boîtes à ouvrir
+    new_boxes = []
+    
     # Vérifier si nous pouvons ouvrir toutes les boîtes
-    for box in opened:
-        # Parcourir les clés dans la boîte actuellement ouverte
+    while opened:
+        # Prendre une boîte déjà ouverte
+        box = opened.pop()
+        
+        # Ajouter les clés de cette boîte à la liste des boîtes à ouvrir
         for key in boxes[box]:
-            # Si la clé correspond à une boîte qui n'est pas encore ouverte, on l'ouvre
-            if key < len(boxes) and key not in opened:
-                opened.add(key)
+            # Si la clé correspond à une boîte qui n'est pas encore ouverte, on l'ajoute à la liste
+            if key < len(boxes) and key not in opened and key not in new_boxes:
+                new_boxes.append(key)
+        
+        # Une fois que nous avons ajouté toutes les nouvelles boîtes à ouvrir, nous les ajoutons à l'ensemble
+        if not opened:  # Si la pile est vide, on ajoute les nouvelles boîtes
+            opened.update(new_boxes)
+            new_boxes.clear()  # Réinitialise la liste des nouvelles boîtes
     
     # Si toutes les boîtes ont été ouvertes, retourner True
     return len(opened) == len(boxes)
