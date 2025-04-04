@@ -1,5 +1,17 @@
 #!/usr/bin/python3
 
+"""
+Module qui permet de déterminer si toutes les boîtes peuvent être ouvertes.
+
+Dans ce module, nous avons une fonction `canUnlockAll` qui prend en entrée une liste de boîtes
+où chaque boîte peut contenir des clés pour ouvrir d'autres boîtes. 
+La première boîte (index 0) est déverrouillée, et l'objectif est de vérifier si toutes les boîtes
+peuvent être ouvertes en utilisant les clés disponibles dans chaque boîte.
+
+Le processus commence par ouvrir la boîte 0 et explorer les autres boîtes à travers les clés que l'on trouve.
+Si toutes les boîtes peuvent être ouvertes, la fonction retourne True, sinon False.
+"""
+
 def canUnlockAll(boxes):
     """
     Détermine si toutes les boîtes peuvent être ouvertes, en commençant par la boîte 0.
