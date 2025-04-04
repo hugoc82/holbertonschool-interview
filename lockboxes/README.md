@@ -1,0 +1,1 @@
+# Projet de déverrouillage des boîtes\n\nCe projet consiste à déterminer si toutes les boîtes peuvent être ouvertes en utilisant les clés contenues dans certaines boîtes.\n\n### Fonctionnement\nLe script commence avec la première boîte (boîte 0) déjà ouverte. À partir de cette boîte, il explore les clés et tente d'ouvrir toutes les autres boîtes.
