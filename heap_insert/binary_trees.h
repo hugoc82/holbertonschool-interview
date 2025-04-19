@@ -23,4 +23,7 @@ typedef binary_tree_t heap_t;
 /* Déclaration de la fonction pour créer un nouveau nœud binaire */
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 
+/* Déclaration de la fonction heap_insert */
+heap_t *heap_insert(heap_t **root, int value);
+
 #endif /* BINARY_TREES_H */
