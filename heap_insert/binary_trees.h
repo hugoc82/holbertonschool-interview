@@ -20,10 +20,12 @@ struct binary_tree_s
 typedef struct binary_tree_s binary_tree_t;
 typedef binary_tree_t heap_t;
 
-/* Déclaration de la fonction pour créer un nouveau nœud binaire */
+/* Déclaration de la fonction pour créer un nouveau noeud binaire */
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 
-/* Déclaration de la fonction heap_insert */
+/* Déclaration des fonctions pour heap_insert */
 heap_t *heap_insert(heap_t **root, int value);
+void insert_at_correct_position(heap_t *root, heap_t *new_node);
+void heapify_up(heap_t *node);
 
 #endif /* BINARY_TREES_H */
