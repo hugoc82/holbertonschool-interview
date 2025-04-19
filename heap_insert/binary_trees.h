@@ -1,10 +1,9 @@
 #ifndef BINARY_TREES_H
 #define BINARY_TREES_H
 
-#include <stddef.h>
-
 /**
  * struct binary_tree_s - Binary tree node
+ *
  * @n: Integer stored in the node
  * @parent: Pointer to the parent node
  * @left: Pointer to the left child node
@@ -19,7 +18,9 @@ struct binary_tree_s
 };
 
 typedef struct binary_tree_s binary_tree_t;
+typedef binary_tree_t heap_t;
 
+/* Déclaration de la fonction pour créer un nouveau nœud binaire */
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 
 #endif /* BINARY_TREES_H */
