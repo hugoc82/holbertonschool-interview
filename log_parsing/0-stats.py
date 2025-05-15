@@ -1,47 +1,52 @@
 #!/usr/bin/python3
+"""
+Log parsing script that reads from stdin and prints metrics.
+
+After every 10 lines or on keyboard interruption (CTRL + C),
+it prints the total file size and the count of each status code.
+"""
+
 import sys
-import re
-from signal import signal, SIGINT
 
-# Liste des codes de statut valides à suivre
-valid_status_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
-
+status_codes = {
+    '200': 0, '301': 0, '400': 0,
+    '401': 0, '403': 0, '404': 0,
+    '405': 0, '500': 0
+}
 total_size = 0
-status_counts = {}
 line_count = 0
 
 def print_stats():
-    """Affiche les statistiques actuelles"""
-    print(f"File size: {total_size}")
-    for code in sorted(status_counts.keys()):
-        print(f"{code}: {status_counts[code]}")
-
-def handle_interrupt(signum, frame):
-    """Gère le CTRL + C"""
-    print_stats()
-    sys.exit(0)
-
-# Gérer l'interruption clavier
-signal(SIGINT, handle_interrupt)
+    """Display the statistics"""
+    print("File size: {}".format(total_size))
+    for code in sorted(status_codes.keys()):
+        if status_codes[code] > 0:
+            print("{}: {}".format(code, status_codes[code]))
 
 try:
     for line in sys.stdin:
-        line = line.strip()
-        # Expression régulière pour valider le format
-        match = re.match(r'^.+ - \[.+\] "GET /projects/260 HTTP/1\.1" (\d{3}) (\d+)$', line)
-        if match:
-            status_code = match.group(1)
-            file_size = int(match.group(2))
-            total_size += file_size
+        line_count += 1
+        parts = line.strip().split()
 
-            if status_code in valid_status_codes:
-                status_counts[status_code] = status_counts.get(status_code, 0) + 1
+        # Expected format: <IP> - [<date>] "GET /projects/260 HTTP/1.1" <status> <size>
+        if len(parts) >= 7:
+            status = parts[-2]
+            size = parts[-1]
 
-            line_count += 1
-            if line_count % 10 == 0:
-                print_stats()
+            # Check if status is valid and size is a number
+            if status in status_codes:
+                try:
+                    total_size += int(size)
+                    status_codes[status] += 1
+                except ValueError:
+                    pass  # Ignore if file size is not a number
+
+        if line_count % 10 == 0:
+            print_stats()
+
 except KeyboardInterrupt:
-    handle_interrupt(None, None)
+    print_stats()
+    raise
 
-# En fin de fichier, afficher les stats restantes
 print_stats()
+
