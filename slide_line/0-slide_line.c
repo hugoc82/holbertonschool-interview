@@ -1,17 +1,17 @@
 #include "slide_line.h"
 
 /**
- * merge_left - Merges values to the left, 2048-style
- * @line: The array to modify
- * @size: Number of elements in array
+ * merge_left - Merge numbers toward the left like 2048
+ * @line: Array of integers
+ * @size: Number of elements
  */
 void merge_left(int *line, size_t size)
 {
-	size_t i, j;
+	size_t i;
 	int temp[size];
 	size_t index = 0;
 
-	/* Step 1: Compress non-zero elements to the left */
+	/* Step 1: Compress non-zero values to the left */
 	for (i = 0; i < size; i++)
 	{
 		if (line[i] != 0)
@@ -20,7 +20,7 @@ void merge_left(int *line, size_t size)
 	while (index < size)
 		temp[index++] = 0;
 
-	/* Step 2: Merge and compress again */
+	/* Step 2: Merge equal neighbors */
 	for (i = 0; i < size - 1; i++)
 	{
 		if (temp[i] != 0 && temp[i] == temp[i + 1])
@@ -30,7 +30,7 @@ void merge_left(int *line, size_t size)
 		}
 	}
 
-	/* Final compress */
+	/* Step 3: Final compress left */
 	index = 0;
 	for (i = 0; i < size; i++)
 	{
@@ -42,17 +42,17 @@ void merge_left(int *line, size_t size)
 }
 
 /**
- * merge_right - Merges values to the right, 2048-style
- * @line: The array to modify
- * @size: Number of elements in array
+ * merge_right - Merge numbers toward the right like 2048
+ * @line: Array of integers
+ * @size: Number of elements
  */
 void merge_right(int *line, size_t size)
 {
-	size_t i, j;
+	size_t i;
 	int temp[size];
 	size_t index = size;
 
-	/* Step 1: Compress non-zero elements to the right */
+	/* Step 1: Compress non-zero values to the right */
 	for (i = size; i-- > 0;)
 	{
 		if (line[i] != 0)
@@ -61,7 +61,7 @@ void merge_right(int *line, size_t size)
 	while (index > 0)
 		temp[--index] = 0;
 
-	/* Step 2: Merge and compress again */
+	/* Step 2: Merge equal neighbors */
 	for (i = size - 1; i > 0; i--)
 	{
 		if (temp[i] != 0 && temp[i] == temp[i - 1])
@@ -71,7 +71,7 @@ void merge_right(int *line, size_t size)
 		}
 	}
 
-	/* Final compress */
+	/* Step 3: Final compress right */
 	index = size;
 	for (i = size; i-- > 0;)
 	{
@@ -83,11 +83,10 @@ void merge_right(int *line, size_t size)
 }
 
 /**
- * slide_line - Slides and merges a line like the 2048 game
- * @line: Pointer to array of integers
+ * slide_line - Slides and merges an array of integers
+ * @line: Array of integers
  * @size: Size of the array
  * @direction: SLIDE_LEFT or SLIDE_RIGHT
- *
  * Return: 1 on success, 0 on failure
  */
 int slide_line(int *line, size_t size, int direction)
