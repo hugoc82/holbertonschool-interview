@@ -19,7 +19,14 @@ typedef struct skiplist_s
 	struct skiplist_s *express;
 } skiplist_t;
 
+/* ==== Prototypes ==== */
+
+/* Fonction principale */
 skiplist_t *linear_skip(skiplist_t *list, int value);
 
-#endif /* SEARCH_H */
+/* Fonctions utilitaires (ex: skiplist/create_skiplist.c, etc.) */
+skiplist_t *create_skiplist(int *array, size_t size);
+void free_skiplist(skiplist_t *list);
+void print_skiplist(const skiplist_t *list);
 
+#endif /* SEARCH_H */
