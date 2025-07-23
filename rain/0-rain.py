@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+0-rain module: contains a function to compute how much water will be retained after it rains.
+"""
 def rain(walls):
     """Calculate how many square units of water will be retained after it rains."""
     if not walls or len(walls) < 3:
