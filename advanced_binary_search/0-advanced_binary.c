@@ -43,10 +43,11 @@ int recursive_search(int *array, size_t low, size_t high, int value)
 
 	if (array[mid] == value)
 	{
+		/* continue search to the left to find first occurrence */
 		if (mid == low || array[mid - 1] != value)
 			return ((int)mid);
 		else
-			return (recursive_search(array, low, mid - 1, value));
+			return (recursive_search(array, low, mid, value));
 	}
 	else if (array[mid] < value)
 		return (recursive_search(array, mid + 1, high, value));
