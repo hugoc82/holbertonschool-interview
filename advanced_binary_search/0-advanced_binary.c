@@ -22,13 +22,13 @@ void print_array(int *array, size_t low, size_t high)
 }
 
 /**
- * recursive_search - Recursively searches for first occurrence of value
- * @array: The array
- * @low: Start index
- * @high: End index
- * @value: Value to search
+ * recursive_search - Recursive binary search to find first occurrence
+ * @array: The array to search
+ * @low: The lower bound index
+ * @high: The upper bound index
+ * @value: The value to find
  *
- * Return: Index of first occurrence or -1
+ * Return: The index of the first occurrence of value or -1
  */
 int recursive_search(int *array, size_t low, size_t high, int value)
 {
@@ -38,13 +38,15 @@ int recursive_search(int *array, size_t low, size_t high, int value)
 		return (-1);
 
 	print_array(array, low, high);
+
 	mid = low + (high - low) / 2;
 
 	if (array[mid] == value)
 	{
-		if (mid == low)
+		if (mid == low || array[mid - 1] != value)
 			return ((int)mid);
-		return (recursive_search(array, low, mid, value));
+		else
+			return (recursive_search(array, low, mid - 1, value));
 	}
 	else if (array[mid] < value)
 		return (recursive_search(array, mid + 1, high, value));
@@ -53,16 +55,16 @@ int recursive_search(int *array, size_t low, size_t high, int value)
 }
 
 /**
- * advanced_binary - Searches for first occurrence of value
- * @array: Pointer to first element
- * @size: Number of elements
- * @value: Value to search for
+ * advanced_binary - Searches for a value in a sorted array
+ * @array: The array to search
+ * @size: The size of the array
+ * @value: The value to search for
  *
- * Return: Index of value or -1
+ * Return: The index where value is located or -1
  */
 int advanced_binary(int *array, size_t size, int value)
 {
-	if (array == NULL || size == 0)
+	if (!array || size == 0)
 		return (-1);
 
 	return (recursive_search(array, 0, size - 1, value));
