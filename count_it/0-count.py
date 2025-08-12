@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Count keywords in titles of 'hot' posts from a subreddit (recursively)."""
 
 from typing import Dict, Iterable, Optional
